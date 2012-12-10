@@ -6,8 +6,8 @@
 
     <parameters>
         <parameter key="datatable.router.class">Symfony\Bundle\FrameworkBundle\Routing\Router</parameter>
-        <parameter key="datatable.url.generator_class">Ali\DatatableBundle\Routing\Generator\UrlGenerator</parameter>
-        <parameter key="datatable.url.generator_base_class">Ali\DatatableBundle\Routing\Generator\UrlGenerator</parameter>
+        <parameter key="datatable.url.generator_class">Ali\DatatableBundle\Generator\UrlGenerator</parameter>
+        <parameter key="datatable.url.generator_base_class">Ali\DatatableBundle\Generator\UrlGenerator</parameter>
     </parameters>
 
     <services>
@@ -15,7 +15,6 @@
             <argument type="service" id="service_container" />
             <argument>%router.resource%</argument>
             <argument type="collection">
-                <argument key="cache_dir">%kernel.cache_dir%</argument>
                 <argument key="debug">%kernel.debug%</argument>
                 <argument key="generator_class">%datatable.url.generator_class%</argument>
                 <argument key="generator_base_class">%datatable.url.generator_base_class%</argument>

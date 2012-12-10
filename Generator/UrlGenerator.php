@@ -1,6 +1,6 @@
 <?php
 
-namespace Ali\DatatableBundle\Routing\Generator;
+namespace Ali\DatatableBundle\Generator;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Route;
@@ -105,19 +105,12 @@ class UrlGenerator implements UrlGeneratorInterface
         $parameters = array_replace($this->context->getParameters(), $parameters);
         $tparams = array_replace($defaults, $parameters);
 
-        // all params must be given
-        if ($diff = array_diff_key($variables, $tparams)) {
-            throw new MissingMandatoryParametersException(sprintf('The "%s" route has some missing mandatory parameters ("%s").', $name, implode('", "', array_keys($diff))));
-        }
-
         $url = '';
         $optional = true;
         foreach ($tokens as $token) {
             if ('variable' === $token[0]) {
                 if (false === $optional || !array_key_exists($token[3], $defaults) || (isset($parameters[$token[3]]) && (string) $parameters[$token[3]] != (string) $defaults[$token[3]])) {
-                    if (! in_array($tparams[$token[3]], array(null, '', false), true) || !$optional) {
-                        $url = $token[1].strtr(rawurlencode($tparams[$token[3]]), $this->decodedChars).$url;
-                    }
+                    $url = $token[1].'{'.$token[3].'}'.$url;
 
                     $optional = false;
                 }
