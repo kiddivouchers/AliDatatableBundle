@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 
 /**
  * UrlGenerator generates URL based on a set of routes without using default route requirments.
+ * Source: Symfony\Component\Routing\Generator\UrlGenerator
  *
  * @category  Routing
  * @package   Wider Plan - AliDatatableBundle
@@ -86,7 +87,7 @@ class UrlGenerator implements UrlGeneratorInterface
             throw new RouteNotFoundException(sprintf('Route "%s" does not exist.', $name));
         }
 
-        if (!isset($this->cache[$name])) {
+        if (! isset($this->cache[$name])) {
             $this->cache[$name] = $route->compile();
         }
 
@@ -103,7 +104,6 @@ class UrlGenerator implements UrlGeneratorInterface
 
         $originParameters = $parameters;
         $parameters = array_replace($this->context->getParameters(), $parameters);
-        $tparams = array_replace($defaults, $parameters);
 
         $url = '';
         $optional = true;

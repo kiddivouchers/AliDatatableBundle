@@ -6,6 +6,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Generates routes for Twig templates without using default route requirements.
+ * Source Symfony\Bridge\Twig\Extension\RoutingExtension
  *
  * @category  Twig
  * @package   Wider Plan - AliDatatableBundle
