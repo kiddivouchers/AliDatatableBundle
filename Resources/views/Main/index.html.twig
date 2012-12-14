@@ -38,8 +38,9 @@
                 }
             }
         };
+
         $.extend($defaults,$options);
-        {% if action and not action_twig %}
+
         $.extend($defaults,{
             "aoColumnDefs": [
                 {% if columnSortStatus is defined %}
@@ -58,57 +59,58 @@
                         },
                     {% endfor %}
                 {% endif %}
-                {
-                    "fnRender": function ( oObj ) {
-                        var $out = '';
+                {% if action and not action_twig %}
+                    {
+                        "fnRender": function ( oObj ) {
+                            var $out = '';
 
-                        {% if view_route is defined %}
-                            var $view_url = strtr(
-                                "{{ pathNoReq(view_route) }}",
-                                { '{id}': oObj.aData[{{fields|length}}-1] }
-                            );
-                            var $link_view = "<a  style='float:right; margin-right:10px' class='dialog' title='view'";
-                            $link_view += "href='"+$view_url+"'>";
-                            $link_view += "{{ 'ali.common.view'|trans()}}</a>";
-                            $out += $link_view;
-                        {% endif %}
+                            {% if view_route is defined %}
+                                var $view_url = strtr(
+                                    "{{ pathNoReq(view_route) }}",
+                                    { '{id}': oObj.aData[{{fields|length}}-1] }
+                                );
+                                var $link_view = "<a  style='float:right; margin-right:10px' class='dialog' title='view'";
+                                $link_view += "href='"+$view_url+"'>";
+                                $link_view += "{{ 'ali.common.view'|trans()}}</a>";
+                                $out += $link_view;
+                            {% endif %}
 
-                        {% if edit_route is defined %}
-                            var $edit_url = strtr(
-                                "{{ pathNoReq(edit_route) }}",
-                                { '{id}': oObj.aData[{{fields|length}}-1] }
-                            );
-                            var $link_edit = "<a  style='float:right; margin-right:10px' class='dialog' title='edit'";
-                            $link_edit += "href='"+$edit_url+"'>";
-                            $link_edit += "{{ 'ali.common.edit'|trans()}}</a>";
-                            $out += $link_edit;
-                        {% endif %}
+                            {% if edit_route is defined %}
+                                var $edit_url = strtr(
+                                    "{{ pathNoReq(edit_route) }}",
+                                    { '{id}': oObj.aData[{{fields|length}}-1] }
+                                );
+                                var $link_edit = "<a  style='float:right; margin-right:10px' class='dialog' title='edit'";
+                                $link_edit += "href='"+$edit_url+"'>";
+                                $link_edit += "{{ 'ali.common.edit'|trans()}}</a>";
+                                $out += $link_edit;
+                            {% endif %}
 
-                        {% if delete_route is defined %}
-                            var $delete_url = strtr(
-                                "{{ pathNoReq(delete_route) }}",
-                                { '{id}': oObj.aData[{{fields|length}}-1] }
-                            );
-                            var $link_delete = "<form style='float:right' class='form' action='"+$delete_url+"' method='post'>";
-                            $link_delete += strtr(
-                                '{{ form_widget(delete_form) }}',
-                                { "_id_": oObj.aData[{{fields|length}}-1] }
-                            );
-                            $link_delete += "<button class='button-delete' type='submit'>{{ 'ali.common.delete'|trans() }}</button>";
-                            $link_delete += " </form>";
-                            $out += $link_delete;
-                        {% endif %}
+                            {% if delete_route is defined %}
+                                var $delete_url = strtr(
+                                    "{{ pathNoReq(delete_route) }}",
+                                    { '{id}': oObj.aData[{{fields|length}}-1] }
+                                );
+                                var $link_delete = "<form style='float:right' class='form' action='"+$delete_url+"' method='post'>";
+                                $link_delete += strtr(
+                                    '{{ form_widget(delete_form) }}',
+                                    { "_id_": oObj.aData[{{fields|length}}-1] }
+                                );
+                                $link_delete += "<button class='button-delete' type='submit'>{{ 'ali.common.delete'|trans() }}</button>";
+                                $link_delete += " </form>";
+                                $out += $link_delete;
+                            {% endif %}
 
-                        if (oObj.aData[{{fields|length}}-1] == null ) {
-                            $out = "<div style='float:right'>{{ 'ali.common.no_action'|trans() }}</div>";
-                        }
-                        return $out
-                    },
-                    "aTargets": [ {{fields|length}}-1  ]
-                }
+                            if (oObj.aData[{{fields|length}}-1] == null ) {
+                                $out = "<div style='float:right'>{{ 'ali.common.no_action'|trans() }}</div>";
+                            }
+                            return $out
+                        },
+                        "aTargets": [ {{fields|length}}-1  ]
+                    }
+                {% endif %}
             ]
         });
-        {% endif %}
         eval("var oTable_"+'{{id}}'.split('-').join('_')+"  = $('#{{id}}').dataTable($defaults)");
 
         {% if search %}
