@@ -62,6 +62,13 @@ class Datatable
     protected $columnVisibilityStatus = array();
 
     /**
+     * Default datatable sort order.
+     *
+     * @var array
+     */
+    protected $sortOrder = array();
+
+    /**
      * class constructor
      *
      * @param ContainerInterface $container
@@ -285,6 +292,16 @@ class Datatable
     }
 
     /**
+     * Returns default datatable sort order.
+     *
+     * @return array
+     */
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
+
+    /**
      * set entity
      *
      * @param type $entity_name
@@ -503,8 +520,8 @@ class Datatable
     public function setColumnSortStatus($columnSortStatus)
     {
         $sortable = array();
-        foreach($columnSortStatus as $key => $value) {
-            $sortable[$key] = (bool)$value;
+        foreach ($columnSortStatus as $key => $value) {
+            $sortable[$key] = (bool) $value;
         }
 
         $this->columnSortStatus = $sortable;
@@ -522,11 +539,28 @@ class Datatable
     public function setColumnVisibilityStatus($columnVisibilityStatus)
     {
         $visible = array();
-        foreach($columnVisibilityStatus as $key => $value) {
-            $visible[$key] = (bool)$value;
+        foreach ($columnVisibilityStatus as $key => $value) {
+            $visible[$key] = (bool) $value;
         }
 
         $this->columnVisibilityStatus = $visible;
+
+        return $this;
+    }
+
+    /**
+     * Set default datatable sort order.
+     * Use array of key => value pairs representing the column and
+     * sort type respectively.
+     * e.g. $sortOrder = array(0 => 'desc', 2 => 'asc')
+     *
+     * @param array $sortOrder
+     *
+     * @return Datatable
+     */
+    public function setSortOrder(array $sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
 
         return $this;
     }
