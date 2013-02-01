@@ -109,6 +109,13 @@
                         "aTargets": [ {{fields|length}}-1  ]
                     }
                 {% endif %}
+            ],
+            'aaSorting': [
+                {% if sortOrder is defined %}
+                    {% for key, value in sortOrder %}
+                        [{{key}}, '{{value}}'],
+                    {% endfor %}
+                {% endif %}
             ]
         });
         eval("var oTable_"+'{{id}}'.split('-').join('_')+"  = $('#{{id}}').dataTable($defaults)");

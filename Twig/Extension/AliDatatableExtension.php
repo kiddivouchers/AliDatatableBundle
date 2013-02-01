@@ -48,6 +48,7 @@ class AliDatatableExtension extends \Twig_Extension
         $options['search']                 = $datatable->getSearch();
         $options['columnSortStatus']       = $datatable->getColumnSortStatus();
         $options['columnVisibilityStatus'] = $datatable->getColumnVisibilityStatus();
+        $options['sortOrder']              = $datatable->getSortOrder();
         $main_template                     = 'AliDatatableBundle:Main:index.html.twig';
 
         if (isset($options['main_template'])) {
