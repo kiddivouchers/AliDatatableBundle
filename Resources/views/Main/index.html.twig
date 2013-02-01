@@ -59,6 +59,16 @@
                         },
                     {% endfor %}
                 {% endif %}
+                {% if columnClasses is defined %}
+                    {% for key, value in columnClasses %}
+                        {
+                            'fnRender': function(obj) {
+                                return '<span class="{{ value }}">'+obj.aData[ obj.iDataColumn ]+'</span>';
+                            },
+                            'aTargets': [ {{ key }} ]
+                        },
+                    {% endfor %}
+                {% endif %}
                 {% if action and not action_twig %}
                     {
                         "fnRender": function ( oObj ) {

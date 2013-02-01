@@ -69,6 +69,13 @@ class Datatable
     protected $sortOrder = array();
 
     /**
+     * CSS classes for specific columns.
+     *
+     * @var array
+     */
+    protected $columnClasses = array();
+
+    /**
      * class constructor
      *
      * @param ContainerInterface $container
@@ -299,6 +306,16 @@ class Datatable
     public function getSortOrder()
     {
         return $this->sortOrder;
+    }
+
+    /**
+     * Returns css classes for specific columns.
+     *
+     * @return array
+     */
+    public function getColumnClasses()
+    {
+        return $this->columnClasses;
     }
 
     /**
@@ -561,6 +578,20 @@ class Datatable
     public function setSortOrder(array $sortOrder)
     {
         $this->sortOrder = $sortOrder;
+
+        return $this;
+    }
+
+    /**
+     * Sets css classes for specific columns.
+     *
+     * @param array $columnClasses
+     *
+     * @return Datatable
+     */
+    public function setColumnClasses(array $columnClasses)
+    {
+        $this->columnClasses = $columnClasses;
 
         return $this;
     }
